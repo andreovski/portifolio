@@ -129,7 +129,12 @@ p { margin: 0; }
 .avail i { flex: none; width: 8px; height: 8px; background: var(--accent); animation: blink 1.2s steps(2, jump-none) infinite; }
 .hero-cta { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; }
 .ghost { color: var(--paper); text-decoration: none; border-bottom: 2px solid var(--accent); padding-bottom: 2px; font-weight: 600; }
-@media (max-width: 899px) { .ascii-box { aspect-ratio: 4 / 3; } .hero-grid { gap: 20px; } }
+@media (max-width: 899px) {
+  .ascii-box { aspect-ratio: 1 / 1; max-width: none; margin-inline: calc(-1 * var(--gutter-l)) calc(-1 * var(--gutter-r)); border-inline: 0; }
+  .ascii-box::before { left: var(--gutter-l); }
+  .ascii-box::after { right: var(--gutter-r); }
+  .hero-grid { gap: 20px; }
+}
 @media (min-width: 900px) {
   .hero-grid { grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: 48px; padding-block: 56px 64px; }
   .ascii { order: 2; }

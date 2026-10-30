@@ -18,9 +18,16 @@
   function heroVideo() {
     var v = document.getElementById('heroVideo');
     if (!v) return;
-    if (motionOn() && heroVisible) { var pr = v.play(); if (pr && pr.catch) pr.catch(function () {}); }
+    // iOS só deixa tocar sozinho se o vídeo estiver mudo também pela propriedade, não só pelo atributo
+    v.muted = true; v.defaultMuted = true;
+    if (motionOn() && heroVisible) { var pr = v.play(); if (pr && pr.catch) pr.catch(function () { videoBlocked = true; }); }
     else v.pause();
   }
+  // Modo de economia de energia do iPhone bloqueia autoplay: tenta de novo no primeiro toque ou rolagem
+  var videoBlocked = false;
+  ['touchstart', 'pointerdown', 'scroll'].forEach(function (ev) {
+    addEventListener(ev, function retry() { if (videoBlocked) { videoBlocked = false; heroVideo(); } }, { passive: true });
+  });
   if ('IntersectionObserver' in window) {
     new IntersectionObserver(function (es) { heroVisible = es[0].isIntersecting; heroVideo(); }).observe(document.getElementById('inicio'));
   }
