@@ -130,9 +130,7 @@ p { margin: 0; }
 .hero-cta { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; }
 .ghost { color: var(--paper); text-decoration: none; border-bottom: 2px solid var(--accent); padding-bottom: 2px; font-weight: 600; }
 @media (max-width: 899px) {
-  .ascii-box { aspect-ratio: 1 / 1; max-width: none; margin-inline: calc(-1 * var(--gutter-l)) calc(-1 * var(--gutter-r)); border-inline: 0; }
-  .ascii-box::before { left: var(--gutter-l); }
-  .ascii-box::after { right: var(--gutter-r); }
+  .ascii-box { aspect-ratio: 1 / 1; }
   .hero-grid { gap: 20px; }
 }
 @media (min-width: 900px) {

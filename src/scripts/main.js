@@ -125,9 +125,10 @@
     cols = W < 420 ? 104 : 150; cw = cv.width / cols; ch = cw * 1.7; rows = Math.floor(cv.height / ch);
     var off = document.createElement('canvas'); off.width = cols; off.height = rows; var og = off.getContext('2d');
     var sw = src.width || src.naturalWidth, sh = src.height || src.naturalHeight;
-    var target = cols / (rows * 1.7), sr = sw / sh, sx = 0, sy = 0, cwid = sw, chei = sh;
-    if (sr > target) { cwid = sh * target; sx = (sw - cwid) / 2; } else { chei = sw / target; sy = Math.max(0, (sh - chei) * .4); }
-    og.drawImage(src, sx, sy, cwid, chei, 0, 0, cols, rows);
+    // Enquadramento "contain": a foto inteira cabe na caixa, centralizada, sem cortar o rosto
+    var target = cols / (rows * 1.7), sr = sw / sh, dw = cols, dh = rows;
+    if (sr > target) dh = rows * target / sr; else dw = cols * sr / target;
+    og.drawImage(src, 0, 0, sw, sh, (cols - dw) / 2, rows - dh, dw, dh);
     var d = og.getImageData(0, 0, cols, rows).data, lums = [], min = 1, max = 0;
     var alpha = [];
     for (var i = 0; i < cols * rows; i++) { var a = d[i * 4 + 3] / 255, l = (d[i * 4] * .299 + d[i * 4 + 1] * .587 + d[i * 4 + 2] * .114) / 255; alpha.push(a); lums.push(l); if (a > .5) { min = Math.min(min, l); max = Math.max(max, l); } }
@@ -180,7 +181,15 @@
     if (!raf) { t0 = performance.now() - 5000; raf = requestAnimationFrame(loop); }
   });
   cv.addEventListener('pointerleave', function () { hover = null; });
-  var rT; addEventListener('resize', function () { clearTimeout(rT); rT = setTimeout(startAscii, 200); });
+  // No celular a barra de endereço some/volta na rolagem e dispara resize: só remonta se a caixa mudar de tamanho
+  var rT, lastBox = cv.clientWidth + 'x' + cv.clientHeight;
+  addEventListener('resize', function () {
+    clearTimeout(rT);
+    rT = setTimeout(function () {
+      var box = cv.clientWidth + 'x' + cv.clientHeight;
+      if (box !== lastBox) { lastBox = box; startAscii(); }
+    }, 200);
+  });
 
   /* typed prompt */
   (function () {
