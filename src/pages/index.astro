@@ -1,0 +1,30 @@
+---
+import Base from '../layouts/Base.astro';
+import IconSprite from '../components/IconSprite.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import Manifesto from '../components/Manifesto.astro';
+import Services from '../components/Services.astro';
+import Projects from '../components/Projects.astro';
+import Process from '../components/Process.astro';
+import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
+---
+<Base>
+  <IconSprite />
+  <a class="skip" href="#manifesto">Pular para o conteúdo</a>
+  <Header />
+  <main>
+    <Hero />
+    <Manifesto />
+    <Services />
+    <Projects />
+    <Process />
+    <Contact />
+  </main>
+  <Footer />
+</Base>
+
+<script>
+  import '../scripts/main.js';
+</script>

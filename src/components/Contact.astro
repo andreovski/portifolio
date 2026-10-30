@@ -1,0 +1,16 @@
+---
+import { contact } from '../data/site';
+const whatsapp = `https://wa.me/${contact.whatsapp}?text=${encodeURIComponent(contact.whatsappText)}`;
+---
+  <section class="contact" id="contato" data-act="05" data-name="Contato" data-accent="--ambar">
+    <div class="wrap">
+      <p class="eyebrow px">Contato</p>
+      <h2>Bora automatizar o seu negócio?</h2>
+      <p>Me conta a ideia ou o processo que mais toma tempo da sua equipe. Eu respondo em até um dia útil com os próximos passos.</p>
+      <div class="contact-row">
+        <a class="btn" href={whatsapp} target="_blank" rel="noopener">WhatsApp · {contact.phoneLabel} ↗</a>
+        <a class="btn ghost" href={`mailto:${contact.email}`}>{contact.email}</a>
+        <a class="link" href={contact.github} target="_blank" rel="noopener">GitHub ↗</a>
+      </div>
+    </div>
+  </section>
