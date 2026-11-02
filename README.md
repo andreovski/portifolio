@@ -23,7 +23,7 @@ npm run preview  # serve o build
 | Efeitos (retrato ASCII, rastro, modo leve) | `src/scripts/main.js` |
 | Imagens e vídeo da hero | `public/img/` |
 
-O domínio ainda não foi comprado. Quando for, troque `site` em `astro.config.mjs`.
+Domínio: [decolab.dev](https://decolab.dev), definido em `site` no `astro.config.mjs`.
 
 ## Desempenho e acessibilidade
 
