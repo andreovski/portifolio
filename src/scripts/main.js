@@ -340,6 +340,60 @@
     if (img.complete && img.naturalWidth) go(); else img.addEventListener('load', go, { once: true });
   }
 
+  /* ---------------- projetos: galeria que abre no próprio cartão ---------------- */
+  var galleries = [];
+  document.querySelectorAll('.work.has-gallery').forEach(function (card) {
+    var btn = card.querySelector('.expand'), gal = card.querySelector('.gallery'), track = gal.querySelector('.gal-track');
+    var slides = Array.prototype.slice.call(track.children), segs = gal.querySelectorAll('.gal-seg span');
+    var count = gal.querySelector('.gal-count b'), prev = gal.querySelector('.gal-prev'), next = gal.querySelector('.gal-next');
+    var idx = 0, ticking = false;
+    function update() {
+      ticking = false;
+      var max = track.scrollWidth - track.clientWidth, x = track.scrollLeft;
+      // a imagem atual é a que encosta no começo do rolo; no fim do rolo, a última
+      var best = 0;
+      for (var i = 0; i < slides.length; i++) if (slides[i].offsetLeft - 20 <= x) best = i;
+      if (x >= max - 2) best = slides.length - 1;
+      idx = best;
+      count.textContent = String(best + 1).padStart(2, '0');
+      segs.forEach(function (s, i) { s.classList.toggle('on', i <= best); });
+      prev.disabled = x <= 2; next.disabled = x >= max - 2;
+    }
+    function go(i) {
+      i = Math.max(0, Math.min(slides.length - 1, i));
+      track.scrollTo({ left: slides[i].offsetLeft - parseFloat(getComputedStyle(track).scrollPaddingLeft || 0), behavior: motionOn() ? 'smooth' : 'auto' });
+    }
+    function setOpen(open) {
+      if (open === card.classList.contains('open')) return;
+      if (open) galleries.forEach(function (g) { if (g.card !== card) g.close(true); });
+      function apply() {
+        card.classList.toggle('open', open);
+        gal.hidden = !open;
+        btn.setAttribute('aria-expanded', String(open));
+        if (open) { track.scrollLeft = 0; update(); }
+      }
+      // depois que o layout muda, leva o cartão para o topo da tela
+      function after() {
+        var top = card.getBoundingClientRect().top;
+        if (open || top < 0) card.scrollIntoView({ block: 'start', behavior: motionOn() ? 'smooth' : 'auto' });
+        (open ? gal.querySelector('.gal-close') : btn).focus({ preventScroll: true });
+      }
+      if (document.startViewTransition && motionOn()) document.startViewTransition(apply).updateCallbackDone.then(after);
+      else { apply(); after(); }
+    }
+    btn.addEventListener('click', function () { setOpen(true); });
+    gal.querySelector('.gal-close').addEventListener('click', function () { setOpen(false); });
+    prev.addEventListener('click', function () { go(idx - 1); });
+    next.addEventListener('click', function () { go(idx + 1); });
+    track.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+    gal.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') { setOpen(false); }
+      else if (e.key === 'ArrowRight' && e.target === track) { e.preventDefault(); go(idx + 1); }
+      else if (e.key === 'ArrowLeft' && e.target === track) { e.preventDefault(); go(idx - 1); }
+    });
+    galleries.push({ card: card, close: function () { card.classList.remove('open'); gal.hidden = true; btn.setAttribute('aria-expanded', 'false'); } });
+  });
+
   /* ---------------- quem entra na tela ganha .in ---------------- */
   function enter(el) {
     if (el.classList.contains('in')) return;

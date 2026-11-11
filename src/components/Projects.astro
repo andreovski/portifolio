@@ -1,9 +1,16 @@
 ---
-const projects = [
+const projects: Array<{ name: string; kind: string; fit: string; img: string; w: number; h: number; alt: string; text: string; tags: string; href?: string; label?: string; badge?: string; gallery?: Shot[] }> = [
   {
-    name: 'Arttevo', kind: 'SAAS B2B', fit: 'phone',
-    img: '/img/arttevo.webp', w: 520, h: 1125,
-    alt: 'Página inicial do Arttevo no celular: Sua gráfica em um só fluxo',
+    name: 'Arttevo', kind: 'SAAS B2B', fit: 'full',
+    img: '/img/projetos/arttevo-site.webp', w: 1440, h: 900,
+    alt: 'Site do Arttevo no computador: Sua gráfica em um só fluxo, com o quadro de orçamentos logo abaixo',
+    gallery: [
+      { src: '/img/projetos/arttevo-site.webp', w: 1440, h: 900, alt: 'Página inicial do Arttevo no computador' },
+      { src: '/img/projetos/arttevo-orcamentos.webp', w: 1600, h: 926, alt: 'Quadro de orçamentos do Arttevo, em colunas de rascunho, enviado, aprovado e concluído' },
+      { src: '/img/projetos/arttevo-mockup3d.webp', w: 1600, h: 954, alt: 'Mockup 3D do Arttevo: molde de costura de uma camiseta e a prévia em 3D com a estampa aplicada' },
+      { src: '/img/projetos/arttevo-loja.webp', w: 1600, h: 1026, alt: 'Loja online da gráfica no Arttevo, com produtos e pedido direto pelo WhatsApp' },
+      { src: '/img/projetos/arttevo-celular.webp', w: 520, h: 1125, alt: 'Página inicial do Arttevo no celular' },
+    ],
     text: 'Sistema de gestão para gráficas: orçamento, produção, financeiro e ferramentas de arte DTF num fluxo só. O cliente monta a própria folha e aprova o orçamento por link.',
     tags: 'DTF · KANBAN · PORTAL DO CLIENTE',
     href: 'https://www.arttevo.com', label: 'Visitar arttevo.com',
@@ -12,6 +19,14 @@ const projects = [
     name: 'Jottape', kind: 'PWA COM IA', fit: 'phone',
     img: '/img/jottape.webp', w: 520, h: 1125,
     alt: 'Tela Hoje do Jottape com briefing de IA, saldo e próximos compromissos',
+    gallery: [
+      { src: '/img/projetos/jottape-desktop.webp', w: 1440, h: 900, alt: 'Jottape no computador: tela Hoje com menu lateral, briefing de IA, saldo e tarefas' },
+      { src: '/img/projetos/jottape-hoje.webp', w: 520, h: 1125, alt: 'Tela Hoje do Jottape no celular' },
+      { src: '/img/projetos/jottape-agenda.webp', w: 520, h: 1125, alt: 'Agenda do Jottape no celular, com a visão do dia' },
+      { src: '/img/projetos/jottape-jotta.webp', w: 520, h: 1057, alt: 'Jotta, a assistente de IA do Jottape, pronta para ouvir, com exemplos de pedidos por voz' },
+      { src: '/img/projetos/jottape-tarefas.webp', w: 520, h: 1125, alt: 'Lista de tarefas do Jottape com etiquetas e prazos' },
+      { src: '/img/projetos/jottape-financas.webp', w: 520, h: 1057, alt: 'Finanças do Jottape com saldo, contas e lançamentos' },
+    ],
     text: 'Agenda, tarefas e dinheiro num app só, com uma assistente de IA por voz que transforma o que você fala em tarefas.',
     tags: 'HOJE · AGENDA · JOTTA · TAREFAS · FINANÇAS',
     href: 'https://jottape-web-production.up.railway.app', label: 'Abrir o Jottape',
@@ -30,7 +45,32 @@ const projects = [
     text: 'App de academia com treinos guiados, aulas com horário e vagas, e corridas coletivas com o percurso no mapa.',
     tags: 'FITNESS · AGENDA · MAPAS',
   },
+  {
+    name: 'Sektor', kind: 'AGENTES DE IA', fit: 'full', badge: 'USO PESSOAL',
+    img: '/img/projetos/sektor-inicio.webp', w: 1441, h: 900,
+    alt: 'Tela inicial do Sektor: saudação, captura rápida de notas e painéis de hábitos, tarefas, agenda e contas',
+    text: 'Meu sistema pessoal de rotina: tarefas, hábitos, agenda, saúde e finanças num painel só, com agentes de IA que organizam o dia e registram o que eu peço.',
+    tags: 'AGENTES DE IA · ROTINA · AUTOMAÇÃO',
+    gallery: [
+      { src: '/img/projetos/sektor-inicio.webp', w: 1441, h: 900, alt: 'Início do Sektor com humor, hábitos, tarefas, agenda, foco e contas a pagar' },
+      { src: '/img/projetos/sektor-projeto.webp', w: 1441, h: 900, alt: 'Projeto no Sektor com progresso e quadro kanban de tarefas' },
+      { src: '/img/projetos/sektor-saude.webp', w: 1441, h: 900, alt: 'Módulo de saúde do Sektor com check-in, água, sono, remédios e consultas' },
+    ],
+  },
+  {
+    name: 'Morro Verde', kind: 'SISTEMA DE PEDIDOS', fit: 'full', badge: '',
+    img: '/img/projetos/morro-verde-pedidos.webp', w: 1600, h: 956,
+    alt: 'Painel administrativo do Morro Verde com os pedidos da semana, totais e status',
+    text: 'Pedidos semanais de hortifrúti para restaurantes e mercados: o cliente monta o pedido no celular dentro do prazo, e a distribuidora controla preços, pedidos e a lista de compra num painel.',
+    tags: 'CATÁLOGO · PEDIDOS · PAINEL ADMIN',
+    gallery: [
+      { src: '/img/projetos/morro-verde-pedidos.webp', w: 1600, h: 956, alt: 'Pedidos da semana no painel do Morro Verde' },
+      { src: '/img/projetos/morro-verde-produtos.webp', w: 1600, h: 956, alt: 'Produtos e preços da semana, com mínimo, custo, margem e disponibilidade' },
+      { src: '/img/projetos/morro-verde-loja.webp', w: 520, h: 955, alt: 'Catálogo do Morro Verde no celular, com produtos da semana e prazo para pedir' },
+    ],
+  },
 ];
+type Shot = { src: string; w: number; h: number; alt: string };
 ---
 <section class="sec pad-wide" id="projetos" data-act="03" data-name="Projetos" data-accent="#3ddcf5">
   <div class="rail plus-col l" aria-hidden="true">{Array.from({ length: 10 }, () => <span>+</span>)}</div>
@@ -38,16 +78,40 @@ const projects = [
   <div class="inner">
     <div class="sec-head">
       <span class="acc" data-scramble>/03</span>
-      <h2 class="d up" data-scramble>Quatro produtos que eu fundei e desenvolvi</h2>
-      <span class="sec-tag" data-scramble>PROJETOS · PAPEL: FUNDADOR E DESENVOLVEDOR</span>
+      <h2 class="d up" data-scramble>Produtos que eu criei e desenvolvi</h2>
+      <span class="sec-tag" data-scramble>PROJETOS · DA IDEIA AO AR</span>
     </div>
     <div class="work-grid">
       {projects.map((p, i) => (
-        <article class="work" data-rv="work" style={`--d:${i}`}>
+        <article class={`work${p.gallery ? ' has-gallery' : ''}`} data-rv="work" style={`--d:${i}; view-transition-name: proj-${i + 1}`} id={`proj-${i + 1}`}>
           <div class={`shot fit-${p.fit}`}>
             <span class="scn" data-scramble>//SCN_0{i + 1}</span>
             <span class="pic"><img src={p.img} width={p.w} height={p.h} alt={p.alt} loading="lazy" decoding="async" /></span>
+            {p.gallery && (
+              <button class="expand" type="button" aria-expanded="false" aria-controls={`gal-${i + 1}`} aria-label={`Ver ${p.gallery.length} imagens de ${p.name}`}>
+                <span class="expand-tag"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M1 5V1h4M11 1h4v4M15 11v4h-4M5 15H1v-4"></path></svg>+{p.gallery.length} IMAGENS</span>
+              </button>
+            )}
           </div>
+          {p.gallery && (
+            <div class="gallery" id={`gal-${i + 1}`} role="region" aria-label={`Imagens de ${p.name}`} hidden>
+              <div class="gal-bar">
+                <span class="scn-static">//SCN_0{i + 1} · {p.name.toUpperCase()}</span>
+                <span class="gal-count" aria-live="polite"><b>01</b>/{String(p.gallery.length).padStart(2, '0')}</span>
+                <button class="gal-close" type="button" aria-label="Fechar imagens"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2 2l12 12M14 2L2 14"></path></svg></button>
+              </div>
+              <ul class="gal-track" tabindex="0" aria-label="Arraste ou use as setas para ver as imagens">
+                {p.gallery.map((g, k) => (
+                  <li class={g.w > g.h ? 'wide' : 'tall'} style={`--k:${k}; --ar:${g.w}/${g.h}`}><img src={g.src} width={g.w} height={g.h} alt={g.alt} loading="lazy" decoding="async" /></li>
+                ))}
+              </ul>
+              <div class="gal-nav">
+                <button class="gal-prev" type="button" aria-label="Imagem anterior"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 2L4 7l5 5"></path></svg></button>
+                <div class="gal-seg" aria-hidden="true">{p.gallery.map((_, k) => <span class={k === 0 ? 'on' : ''}></span>)}</div>
+                <button class="gal-next" type="button" aria-label="Próxima imagem"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 2l5 5-5 5"></path></svg></button>
+              </div>
+            </div>
+          )}
           <div class="work-body">
             <div class="work-head">
               <div class="work-title">
@@ -56,8 +120,8 @@ const projects = [
               </div>
               {p.href ? (
                 <a class="arrowbox" href={p.href} target="_blank" rel="noopener" aria-label={p.label}><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 11L11 3M5 3h6v6"></path></svg></a>
-              ) : (
-                <span class="soon">EM BREVE</span>
+              ) : p.badge !== '' && (
+                <span class="soon">{p.badge ?? 'EM BREVE'}</span>
               )}
             </div>
             <p class="muted">{p.text}</p>

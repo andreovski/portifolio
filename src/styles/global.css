@@ -204,7 +204,7 @@ main { position: relative; z-index: 1; }
 .plus-col { position: absolute; top: 28px; bottom: 28px; display: flex; flex-direction: column; justify-content: space-between; color: var(--mist); font-size: 14px; line-height: 1; }
 .plus-col.l { left: clamp(8px, 2vw, 24px); }
 .plus-col.r { right: clamp(8px, 2vw, 24px); }
-.work-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; }
+.work-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
 .work { display: flex; flex-direction: column; border: 1px solid var(--line); background: rgba(15, 13, 26, .9); transition: border-color .25s; }
 .work:hover, .work.lit { border-color: var(--accent); }
 .shot {
@@ -224,7 +224,7 @@ main { position: relative; z-index: 1; }
 .fit-phone img { border-radius: 14px 14px 0 0; box-shadow: 0 0 0 4px var(--ink); }
 .fit-phone canvas { border-radius: 14px 14px 0 0; }
 .fit-full .pic { inset: 0; }
-.fit-full img { width: 100%; height: 100%; object-fit: cover; }
+.fit-full img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 0; }
 .work-body { padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
 .work-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
 .work-title { display: flex; flex-direction: column; gap: 2px; }
@@ -235,6 +235,56 @@ main { position: relative; z-index: 1; }
 .arrowbox { flex: none; width: 44px; height: 44px; display: grid; place-items: center; border: 1px solid var(--line); color: var(--paper); transition: background .2s, color .2s; }
 .arrowbox:hover { background: var(--accent); color: var(--ink); }
 .soon { flex: none; padding: 4px 8px; border: 1px dashed var(--line); font-size: 9.5px; letter-spacing: .12em; color: var(--mist); }
+
+/* galeria: o cartão com mais imagens abre ocupando a linha toda e vira um rolo de filme */
+.work-grid { grid-auto-flow: dense; }
+.expand { position: absolute; inset: 0; z-index: 4; padding: 0; border: 0; background: transparent; cursor: zoom-in; display: flex; align-items: flex-end; }
+.expand-tag { margin: 10px; display: inline-flex; align-items: center; gap: 8px; padding: 6px 10px; background: var(--ink); color: var(--accent); border: 1px solid var(--accent); font: 10px/1 var(--body); letter-spacing: .12em; transition: background .2s, color .2s; }
+.expand:hover .expand-tag, .expand:focus-visible .expand-tag { background: var(--accent); color: var(--ink); }
+.expand:focus-visible { outline-offset: -3px; }
+.gallery[hidden] { display: none; }
+.work.open { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 2.4fr) minmax(0, 1fr); border-color: var(--accent); }
+.work.open .shot { display: none; }
+.work.open .work-body { padding: 24px; align-self: start; gap: 14px; }
+.work.open .work-body h3 { font-size: 26px; }
+.work.open .work-body .muted { font-size: 13px; }
+.gallery { margin: 10px 0 10px 10px; min-width: 0; display: flex; flex-direction: column; border: 1px solid var(--line); background: #15122a; }
+.gal-bar { display: flex; align-items: center; gap: 16px; min-height: 44px; padding-left: 12px; border-bottom: 1px solid var(--line); font-size: 10px; letter-spacing: .12em; color: var(--accent); }
+.gal-count { margin-left: auto; font-size: 11px; color: var(--mist); font-variant-numeric: tabular-nums; }
+.gal-count b { color: var(--paper); font-weight: 400; }
+.gal-close, .gal-nav button { width: 44px; height: 44px; flex: none; display: grid; place-items: center; padding: 0; border: 0; background: none; color: var(--paper); cursor: pointer; transition: background .2s, color .2s; }
+.gal-close { border-left: 1px solid var(--line); }
+.gal-close:hover, .gal-nav button:hover { background: var(--accent); color: var(--ink); }
+.gal-nav button:disabled { opacity: .3; pointer-events: none; }
+.gal-track {
+  position: relative; list-style: none; margin: 0; padding: 16px; display: flex; gap: 12px;
+  height: clamp(300px, 56vh, 560px); overflow-x: auto; overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory; scroll-padding: 16px; scrollbar-width: none;
+  background-image: repeating-linear-gradient(0deg, rgba(169, 164, 191, .05) 0 1px, transparent 1px 4px);
+}
+.gal-track::-webkit-scrollbar { display: none; }
+.gal-track li { flex: none; height: 100%; aspect-ratio: var(--ar); max-width: 100%; scroll-snap-align: start; border: 1px solid var(--line); background: var(--ink); }
+.gal-track img { display: block; width: 100%; height: 100%; object-fit: contain; }
+/* telas largas (computador) ocupam a largura e a moldura abraça a imagem, sem faixas vazias */
+.gal-track li.wide { width: 100%; height: auto; max-height: 100%; align-self: center; }
+.gal-nav { display: flex; align-items: center; border-top: 1px solid var(--line); }
+.gal-nav .gal-prev { border-right: 1px solid var(--line); }
+.gal-nav .gal-next { border-left: 1px solid var(--line); }
+.gal-seg { flex: 1; display: flex; gap: 4px; padding: 0 14px; }
+.gal-seg span { flex: 1; height: 6px; background: var(--line); transition: background .2s steps(2); }
+.gal-seg span.on { background: var(--accent); }
+@media (max-width: 900px) {
+  .work.open { grid-template-columns: minmax(0, 1fr); }
+  .work.open .gallery { margin: 10px 10px 0; }
+  .work.open .work-body { padding: 16px; }
+  /* no celular o rolo tem a altura da maior imagem: telas de computador não ficam perdidas numa caixa alta */
+  .gal-track { height: auto; align-items: center; padding: 12px; gap: 10px; scroll-padding: 12px; }
+  .gal-track li.tall { height: min(54svh, 440px); }
+}
+/* abrir: os cartões deslizam para o novo lugar e a galeria liga como tela de tubo */
+::view-transition-group(*) { animation-duration: .45s; animation-timing-function: cubic-bezier(.2, .7, .2, 1); }
+.motion .work.open .gallery { animation: crt .5s steps(8, end) both; }
+.motion .work.open .gal-track li { animation: rv-up .45s steps(5, end) both; animation-delay: calc(var(--k) * 70ms + 200ms); }
 
 /* processo */
 .steps { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border: 1px solid var(--line); background: rgba(15, 13, 26, .9); }
