@@ -200,9 +200,11 @@
   var src = null, cells = [], aCols = 0, aRows = 0, cw = 0, ch = 0, aRaf = 0, t0 = 0, hover = null;
   function sample() {
     var w = cv.clientWidth, h = cv.clientHeight; if (!w || !h) return false;
-    var dpr = Math.min(2, devicePixelRatio || 1);
+    // densidade real da tela (até 3x) para os caracteres saírem nítidos no celular
+    var dpr = Math.min(3, devicePixelRatio || 1);
     cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);
-    aCols = w < 420 ? 96 : 130; cw = cv.width / aCols; ch = cw * 1.7; aRows = Math.floor(cv.height / ch);
+    // no celular o retrato é estreito: mais colunas para o rosto não virar borrão
+    aCols = w < 420 ? Math.round(w / 2.3) : 130; cw = cv.width / aCols; ch = cw * 1.7; aRows = Math.floor(cv.height / ch);
     var off = document.createElement('canvas'); off.width = aCols; off.height = aRows; var og = off.getContext('2d');
     var sw = src.naturalWidth, sh = src.naturalHeight;
     // "contain" encostado embaixo: a foto inteira cabe, sem cortar o rosto
