@@ -9,9 +9,9 @@
   --paper: #f4f1ea;
   --mist: #a9a4bf;
   --accent: #c6f432;
-  --display: "JetBrains Mono", "Space Mono", ui-monospace, monospace;
+  --display: "Chakra Petch", "Space Mono", system-ui, sans-serif;
   --body: "Space Mono", ui-monospace, Menlo, monospace;
-  --dscale: .86;
+  --dscale: 1;
   --header: 64px;
   --step: cubic-bezier(.2, .7, .2, 1);
   transition: --accent .7s ease;
@@ -33,7 +33,7 @@ a { color: inherit; }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 h1, h2, h3, p { margin: 0; }
 h1, h2, h3 { font-weight: 400; text-wrap: balance; }
-.d { font-family: var(--display); font-weight: 800; letter-spacing: -.02em; }
+.d { font-family: var(--display); font-weight: 700; letter-spacing: 0; }
 .up { text-transform: uppercase; }
 .caps { text-transform: uppercase; letter-spacing: .06em; }
 .acc { color: var(--accent); }
@@ -107,7 +107,7 @@ main { position: relative; z-index: 1; }
 .nav ol { list-style: none; margin: 32px 0 0; padding: 0; display: grid; }
 .nav li a {
   display: flex; align-items: baseline; gap: 16px; padding: 12px 0; text-decoration: none;
-  font-family: var(--display); font-weight: 800; letter-spacing: -.02em; text-transform: uppercase;
+  font-family: var(--display); font-weight: 700; letter-spacing: 0; text-transform: uppercase;
   font-size: clamp(30px, 9vw, 56px); line-height: 1.05; border-bottom: 1px solid var(--line);
 }
 .nav li a:hover { color: var(--accent); }
