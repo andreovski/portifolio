@@ -212,7 +212,6 @@ main { position: relative; z-index: 1; }
   border: 1px solid var(--line); background-color: #15122a;
   filter: grayscale(.6); transition: filter .3s;
 }
-.shot::after { content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 2; background-image: repeating-linear-gradient(0deg, rgba(169, 164, 191, .07) 0 1px, transparent 1px 4px); }
 .work:hover .shot, .work.lit .shot { filter: none; }
 .scn { position: absolute; top: 8px; right: 10px; z-index: 3; font-size: 10px; color: var(--accent); }
 .pic { position: absolute; display: block; line-height: 0; }
