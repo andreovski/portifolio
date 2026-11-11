@@ -67,9 +67,15 @@ main { position: relative; z-index: 1; }
   position: sticky; top: 0; z-index: 20; height: var(--header);
   display: flex; align-items: stretch;
   padding-top: env(safe-area-inset-top, 0px); box-sizing: content-box;
-  background: rgba(15, 13, 26, .86);
+  /* no topo da hero o header é quase transparente; depois da rolagem ganha fundo e desfoque */
+  background: rgba(15, 13, 26, .12);
+  border-bottom: 1px solid rgba(46, 42, 71, .35);
+  transition: background-color .35s ease, border-color .35s ease, -webkit-backdrop-filter .35s ease, backdrop-filter .35s ease;
+}
+.top.scrolled {
+  background: rgba(15, 13, 26, .72);
   -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--line);
+  border-bottom-color: var(--line);
 }
 /* logo igual à versão anterior: marca de pixels + nome em Jersey 15 */
 .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; font-family: "Jersey 15", var(--body); font-weight: 400; font-size: 24px; line-height: 1; }

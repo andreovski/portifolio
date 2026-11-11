@@ -179,7 +179,9 @@
   }
 
   var ticking = false;
+  var topBar = document.querySelector('.top');
   function onScroll() {
+    topBar.classList.toggle('scrolled', scrollY > 24);
     detectAct();
     if (words.length) {
       var r = mText.getBoundingClientRect();
