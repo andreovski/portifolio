@@ -39,6 +39,19 @@
   }
   tick(); setInterval(tick, 1000);
 
+  /* ---------------- nome da hero: glitch de entrada uma vez, tranco curto no hover ---------------- */
+  var heroName = document.querySelector('.hero-name');
+  if (heroName) {
+    heroName.addEventListener('animationend', function (e) {
+      if (e.animationName === 'glitch-in') heroName.classList.add('settled');
+      else if (e.animationName === 'glitch-hover') heroName.classList.remove('jolt');
+    });
+    heroName.addEventListener('pointerenter', function () {
+      if (!fine.matches || !heroName.classList.contains('settled') || heroName.classList.contains('jolt')) return;
+      heroName.classList.add('jolt');
+    });
+  }
+
   /* ---------------- menu ---------------- */
   var nav = document.getElementById('nav'), menuBtn = document.getElementById('menuBtn');
   function setMenu(open) {
