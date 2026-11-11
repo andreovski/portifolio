@@ -1,68 +1,70 @@
-  <section class="act-sec" id="projetos" data-act="03" data-name="Projetos" data-accent="--ciano">
-    <div class="wrap">
-      <p class="eyebrow px">Projetos</p>
-      <h2 class="h2">Quatro produtos que eu fundei e desenvolvi</h2>
-
-      <div class="projects">
-        <article class="proj" style="--pc:#35B4E3" data-pc="#35B4E3" data-act="03" data-name="Arttevo">
-          <div class="panel halftone">
-            <div class="phone"><span class="shot"><img src="/img/arttevo.webp" width="520" height="1125" alt="Página inicial do Arttevo no celular: Sua gráfica em um só fluxo" loading="lazy" decoding="async"></span></div>
-          </div>
-          <div>
-            <p class="proj-index px"><b>01 / 04</b><span>SaaS B2B</span></p>
-            <h3>Arttevo</h3>
-            <p>Sistema de gestão para gráficas: orçamento, produção, financeiro e ferramentas de arte DTF num fluxo só. O cliente monta a própria folha e aprova o orçamento por link.</p>
-            <ul class="tags"><li>DTF</li><li>Kanban</li><li>Portal do cliente</li></ul>
-            <p class="role">Papel: <span>fundador e desenvolvedor</span></p>
-            <a class="proj-link" href="https://www.arttevo.com" target="_blank" rel="noopener">Visitar arttevo.com ↗</a>
-          </div>
-        </article>
-
-        <article class="proj" style="--pc:#34C759" data-pc="#34C759" data-act="03" data-name="Jottape">
-          <div class="panel">
-            <div class="phone"><span class="shot"><img src="/img/jottape.webp" width="520" height="1125" alt="Tela Hoje do Jottape com briefing de IA, saldo e próximos compromissos" loading="lazy" decoding="async"></span></div>
-          </div>
-          <div>
-            <p class="proj-index px"><b>02 / 04</b><span>PWA com IA</span></p>
-            <h3>Jottape</h3>
-            <p>Agenda, tarefas e dinheiro num app só, com uma assistente de IA por voz que transforma o que você fala em tarefas.</p>
-            <ul class="tabs" aria-label="Abas do app e suas cores">
-              <li style="--c:#5856D6">Hoje</li><li style="--c:#FF3B30">Agenda</li><li style="--c:#AF52DE">Jotta</li><li style="--c:#FF9500">Tarefas</li><li style="--c:#34C759">Finanças</li>
-            </ul>
-            <p class="role">Papel: <span>fundador e desenvolvedor</span></p>
-            <a class="proj-link" href="https://jottape-web-production.up.railway.app" target="_blank" rel="noopener">Abrir o Jottape ↗</a>
-          </div>
-        </article>
-
-        <article class="proj" style="--pc:#3FBF9F" data-pc="#3FBF9F" data-act="03" data-name="Roda Junto">
-          <div class="panel">
-            <div class="free"><span class="shot"><img src="/img/roda-junto.webp" width="520" height="940" alt="Tela Passaporte do Roda Junto, com perfil verificado, 9.340 km validados e emblemas conquistados" loading="lazy" decoding="async"></span></div>
-          </div>
-          <div>
-            <p class="proj-index px"><b>03 / 04</b><span>App mobile</span></p>
-            <h3>Roda Junto</h3>
-            <p>Comunidade de motociclistas com viagens e quilômetros validados, perfil verificado e emblemas por conquista, como um passaporte de estrada.</p>
-            <ul class="badges" aria-label="Exemplos de emblemas do app">
-              <li style="--d:0;--r:-4deg">1.000 km</li><li style="--d:1;--r:3deg">5 serras</li><li style="--d:2;--r:-2deg">Boa anfitriã</li>
-            </ul>
-            <p class="role">Papel: <span>fundador e desenvolvedor</span></p>
-            <span class="proj-link soon">Estudo de caso em breve</span>
-          </div>
-        </article>
-
-        <article class="proj" style="--pc:#FF7A3D" data-pc="#FF7A3D" data-act="03" data-name="GoWorkout">
-          <div class="panel full">
-            <span class="shot"><img src="/img/goworkout.webp" width="1200" height="900" alt="Três telas do GoWorkout: treinos disponíveis, atividades do dia e corrida coletiva com percurso no mapa" loading="lazy" decoding="async"></span>
-          </div>
-          <div>
-            <p class="proj-index px"><b>04 / 04</b><span>App mobile</span></p>
-            <h3>GoWorkout</h3>
-            <p>App de academia com treinos guiados, aulas com horário e vagas, e corridas coletivas com o percurso no mapa.</p>
-            <ul class="tags"><li>Fitness</li><li>Agenda</li><li>Mapas</li></ul>
-            <p class="role">Papel: <span>fundador e desenvolvedor</span></p>
-            <span class="proj-link soon">Estudo de caso em breve</span>
-          </div>
-        </article>
-      </div>
+---
+const projects = [
+  {
+    name: 'Arttevo', kind: 'SAAS B2B', fit: 'phone',
+    img: '/img/arttevo.webp', w: 520, h: 1125,
+    alt: 'Página inicial do Arttevo no celular: Sua gráfica em um só fluxo',
+    text: 'Sistema de gestão para gráficas: orçamento, produção, financeiro e ferramentas de arte DTF num fluxo só. O cliente monta a própria folha e aprova o orçamento por link.',
+    tags: 'DTF · KANBAN · PORTAL DO CLIENTE',
+    href: 'https://www.arttevo.com', label: 'Visitar arttevo.com',
+  },
+  {
+    name: 'Jottape', kind: 'PWA COM IA', fit: 'phone',
+    img: '/img/jottape.webp', w: 520, h: 1125,
+    alt: 'Tela Hoje do Jottape com briefing de IA, saldo e próximos compromissos',
+    text: 'Agenda, tarefas e dinheiro num app só, com uma assistente de IA por voz que transforma o que você fala em tarefas.',
+    tags: 'HOJE · AGENDA · JOTTA · TAREFAS · FINANÇAS',
+    href: 'https://jottape-web-production.up.railway.app', label: 'Abrir o Jottape',
+  },
+  {
+    name: 'Roda Junto', kind: 'APP MOBILE', fit: 'free',
+    img: '/img/roda-junto.webp', w: 520, h: 940,
+    alt: 'Tela Passaporte do Roda Junto, com perfil verificado, 9.340 km validados e emblemas conquistados',
+    text: 'Comunidade de motociclistas com viagens e quilômetros validados, perfil verificado e emblemas por conquista, como um passaporte de estrada.',
+    tags: '1.000 KM · 5 SERRAS · BOA ANFITRIÃ',
+  },
+  {
+    name: 'GoWorkout', kind: 'APP MOBILE', fit: 'full',
+    img: '/img/goworkout.webp', w: 1200, h: 900,
+    alt: 'Três telas do GoWorkout: treinos disponíveis, atividades do dia e corrida coletiva com percurso no mapa',
+    text: 'App de academia com treinos guiados, aulas com horário e vagas, e corridas coletivas com o percurso no mapa.',
+    tags: 'FITNESS · AGENDA · MAPAS',
+  },
+];
+---
+<section class="sec pad-wide" id="projetos" data-act="03" data-name="Projetos" data-accent="#3ddcf5">
+  <div class="rail plus-col l" aria-hidden="true">{Array.from({ length: 10 }, () => <span>+</span>)}</div>
+  <div class="rail plus-col r" aria-hidden="true">{Array.from({ length: 10 }, () => <span>+</span>)}</div>
+  <div class="inner">
+    <div class="sec-head">
+      <span class="acc" data-scramble>/03</span>
+      <h2 class="d up" data-scramble>Quatro produtos que eu fundei e desenvolvi</h2>
+      <span class="sec-tag" data-scramble>PROJETOS · PAPEL: FUNDADOR E DESENVOLVEDOR</span>
     </div>
-  </section>
+    <div class="work-grid">
+      {projects.map((p, i) => (
+        <article class="work" data-rv="work" style={`--d:${i}`}>
+          <div class={`shot fit-${p.fit}`}>
+            <span class="scn" data-scramble>//SCN_0{i + 1}</span>
+            <span class="pic"><img src={p.img} width={p.w} height={p.h} alt={p.alt} loading="lazy" decoding="async" /></span>
+          </div>
+          <div class="work-body">
+            <div class="work-head">
+              <div class="work-title">
+                <h3 class="d up">{p.name}</h3>
+                <span class="kind">{p.kind}</span>
+              </div>
+              {p.href ? (
+                <a class="arrowbox" href={p.href} target="_blank" rel="noopener" aria-label={p.label}><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 11L11 3M5 3h6v6"></path></svg></a>
+              ) : (
+                <span class="soon">EM BREVE</span>
+              )}
+            </div>
+            <p class="muted">{p.text}</p>
+            <p class="tagline">{p.tags}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

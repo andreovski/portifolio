@@ -1,32 +1,53 @@
-  <section class="act-sec" id="servicos" data-act="02" data-name="Serviços" data-accent="--coral">
-    <div class="wrap">
-      <p class="eyebrow px">O que eu faço</p>
-      <h2 class="h2">Quatro formas de trabalharmos juntos</h2>
-      <ol class="stack">
-        <li style="--i:0">
-          <span class="num px">Serviço 1 de 4</span>
-          <h3>Automações e agentes de IA</h3>
-          <p>Agentes de IA que atendem, respondem e executam tarefas, e automações que conectam seus sistemas para acabar com o trabalho manual.</p>
-          <ul class="tags"><li>Agentes de IA</li><li>Automação</li><li>Integrações</li></ul>
-        </li>
-        <li style="--i:1">
-          <span class="num px">Serviço 2 de 4</span>
-          <h3>Produto do zero</h3>
-          <p>Da ideia ao MVP no ar: descoberta, desenho das telas, desenvolvimento e lançamento.</p>
-          <ul class="tags"><li>MVP</li><li>Design</li><li>Lançamento</li></ul>
-        </li>
-        <li style="--i:2">
-          <span class="num px">Serviço 3 de 4</span>
-          <h3>Apps mobile e PWA</h3>
-          <p>Apps que as pessoas abrem todo dia, com cara de nativo e funcionando bem em qualquer celular.</p>
-          <ul class="tags"><li>iOS</li><li>Android</li><li>PWA</li></ul>
-        </li>
-        <li style="--i:3">
-          <span class="num px">Serviço 4 de 4</span>
-          <h3>Plataformas SaaS</h3>
-          <p>Sistemas de gestão com painel, planos, integrações e portal para os clientes do seu cliente.</p>
-          <ul class="tags"><li>B2B</li><li>Integrações</li><li>Pagamentos</li></ul>
-        </li>
-      </ol>
+---
+const services = [
+  {
+    title: 'Automações e agentes de IA',
+    text: 'Agentes de IA que atendem, respondem e executam tarefas, e automações que conectam seus sistemas para acabar com o trabalho manual.',
+    tags: 'AGENTES DE IA · AUTOMAÇÃO · INTEGRAÇÕES',
+    icon: '<circle cx="8" cy="22" r="4"></circle><circle cx="36" cy="9" r="4"></circle><circle cx="36" cy="35" r="4"></circle><rect x="17" y="16" width="12" height="12"></rect><path d="M12 22h5M29 19l4-7M29 25l4 7"></path>',
+  },
+  {
+    title: 'Produto do zero',
+    text: 'Da ideia ao MVP no ar: descoberta, desenho das telas, desenvolvimento e lançamento.',
+    tags: 'MVP · DESIGN · LANÇAMENTO',
+    icon: '<path d="M22 4l16 9v18l-16 9-16-9V13z"></path><path d="M6 13l16 9 16-9M22 22v18"></path>',
+  },
+  {
+    title: 'Apps mobile e PWA',
+    text: 'Apps que as pessoas abrem todo dia, com cara de nativo e funcionando bem em qualquer celular.',
+    tags: 'IOS · ANDROID · PWA',
+    icon: '<rect x="12" y="3" width="20" height="38"></rect><path d="M19 36h6M12 9h20M12 31h20"></path><path d="M3 16v12M41 16v12" stroke-dasharray="2 3"></path>',
+  },
+  {
+    title: 'Plataformas SaaS',
+    text: 'Sistemas de gestão com painel, planos, integrações e portal para os clientes do seu cliente.',
+    tags: 'B2B · INTEGRAÇÕES · PAGAMENTOS',
+    icon: '<rect x="3" y="5" width="38" height="34"></rect><path d="M3 13h38M15 13v26"></path><rect x="20" y="18" width="8" height="8"></rect><rect x="31" y="18" width="6" height="8"></rect><path d="M20 31h17"></path>',
+  },
+];
+// pathLength="1" deixa cada traço do ícone ser desenhado pela animação; o tracejado decorativo fica de fora
+const draw = (svg: string) => svg.replace(/<(path|rect|circle)([^>]*)>/g, (m, tag, attrs) => (attrs.includes('stroke-dasharray') ? m : `<${tag} pathLength="1"${attrs}>`));
+---
+<section class="sec pad" id="servicos" data-act="02" data-name="Serviços" data-accent="#ff5e5b">
+  <span class="cross l" aria-hidden="true">+</span><span class="cross r" aria-hidden="true">+</span>
+  <div class="inner">
+    <div class="sec-head">
+      <span class="acc" data-scramble>/02</span>
+      <h2 class="d up" data-scramble>Quatro formas de trabalharmos juntos</h2>
+      <span class="sec-tag" data-scramble>O QUE EU FAÇO</span>
     </div>
-  </section>
+    <div class="svc-grid">
+      {services.map((s, i) => (
+        <article class="svc" data-rv="svc" style={`--d:${i}`}>
+          {i > 0 && <span class="rail svc-plus" aria-hidden="true">+</span>}
+          <svg class="svc-icon" width="44" height="44" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true" set:html={draw(s.icon)} />
+          <div class="svc-body">
+            <h3 class="d up">{s.title}</h3>
+            <p class="muted">{s.text}</p>
+            <p class="tagline">{s.tags}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
