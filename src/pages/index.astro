@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import IconSprite from '../components/IconSprite.astro';
 import Header from '../components/Header.astro';
 import Hero from '../components/Hero.astro';
 import Manifesto from '../components/Manifesto.astro';
@@ -10,6 +11,7 @@ import Contact from '../components/Contact.astro';
 import Footer from '../components/Footer.astro';
 ---
 <Base>
+  <IconSprite />
   <canvas id="grid" aria-hidden="true"></canvas>
   <a class="skip" href="#manifesto">Pular para o conteúdo</a>
   <Header />
