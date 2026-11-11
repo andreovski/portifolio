@@ -1,31 +1,51 @@
+---
+const links = [
+  { href: '#inicio', label: 'Início', act: '00' },
+  { href: '#manifesto', label: 'Manifesto', act: '01' },
+  { href: '#servicos', label: 'Serviços', act: '02' },
+  { href: '#projetos', label: 'Projetos', act: '03' },
+  { href: '#processo', label: 'Processo', act: '04' },
+  { href: '#contato', label: 'Contato', act: '05' },
+];
+---
 <header class="top">
-  <div class="wrap">
-    <a class="brand" href="#inicio" aria-label="André Luiz, início">
-      <span class="mark" aria-hidden="true"><i></i><i class="o"></i><i class="o"></i><i></i><i></i><i></i><i class="o"></i><i></i><i></i><i class="o"></i><i></i><i></i><i></i><i class="o"></i><i class="o"></i><i></i></span>
-      André Luiz
-    </a>
-    <p class="act px" aria-live="polite"><b id="actNum">00</b> <span id="actName">Início</span></p>
-    <a class="btn" href="#contato">Vamos conversar</a>
-    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="nav" aria-label="Abrir menu"><span></span></button>
+  <a class="brand" href="#inicio" aria-label="André Luiz, início">
+    <span class="mark" aria-hidden="true"><i></i><i class="o"></i><i class="o"></i><i></i><i></i><i></i><i class="o"></i><i></i><i></i><i class="o"></i><i></i><i></i><i></i><i class="o"></i><i class="o"></i><i></i></span>
+    André Luiz
+  </a>
+  <nav class="nav-links" aria-label="Seções">
+    {links.map((l, i) => (
+      <span class="nav-item">
+        {i > 0 && <span class="plus" aria-hidden="true">+</span>}
+        <a class="navlink" href={l.href} data-nav={l.act}>{l.label}</a>
+      </span>
+    ))}
+  </nav>
+  <div class="sys" aria-hidden="true">
+    <span>SYS_TIME</span>
+    <span class="sys-clock" data-clock="s">--:--:--</span>
+    <span>BRT · UTC−3</span>
   </div>
-  <div class="progress" aria-hidden="true"><i id="bar"></i></div>
+  <a class="btn-solid cta-top" href="#contato"><span>Vamos conversar</span><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 11L11 3M5 3h6v6"></path></svg></a>
+  <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="nav" aria-label="Abrir menu">
+    <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14"></path></svg>
+  </button>
 </header>
 
-<nav class="nav" id="nav" hidden aria-label="Seções">
+<nav class="nav" id="nav" hidden aria-label="Menu">
   <div class="nav-head">
-    <span class="px" style="color:var(--mist)">Índice</span>
-    <button class="menu-btn" id="closeBtn" aria-label="Fechar menu">✕</button>
+    <span class="lbl">ÍNDICE</span>
+    <button class="menu-btn" id="closeBtn" type="button" aria-label="Fechar menu">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2 2l12 12M14 2L2 14"></path></svg>
+    </button>
   </div>
   <ol>
-    <li><a href="#inicio"><span class="px">00</span>Início</a></li>
-    <li><a href="#manifesto"><span class="px">01</span>Manifesto</a></li>
-    <li><a href="#servicos"><span class="px">02</span>Serviços</a></li>
-    <li><a href="#projetos"><span class="px">03</span>Projetos</a></li>
-    <li><a href="#processo"><span class="px">04</span>Processo</a></li>
-    <li><a href="#contato"><span class="px">05</span>Contato</a></li>
+    {links.map((l, i) => (
+      <li style={`--i:${i}`}><a href={l.href}><span class="lbl">/{l.act}</span>{l.label}</a></li>
+    ))}
   </ol>
   <div class="nav-foot">
     <span>Efeitos pesados demais no seu aparelho?</span>
-    <button class="toggle" id="liteNav" aria-pressed="false">Modo leve</button>
+    <button class="toggle" id="liteNav" type="button" aria-pressed="false">Modo leve</button>
   </div>
 </nav>

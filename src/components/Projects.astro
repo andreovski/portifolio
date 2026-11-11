@@ -1,68 +1,134 @@
-  <section class="act-sec" id="projetos" data-act="03" data-name="Projetos" data-accent="--ciano">
-    <div class="wrap">
-      <p class="eyebrow px">Projetos</p>
-      <h2 class="h2">Quatro produtos que eu fundei e desenvolvi</h2>
-
-      <div class="projects">
-        <article class="proj" style="--pc:#35B4E3" data-pc="#35B4E3" data-act="03" data-name="Arttevo">
-          <div class="panel halftone">
-            <div class="phone"><span class="shot"><img src="/img/arttevo.webp" width="520" height="1125" alt="Página inicial do Arttevo no celular: Sua gráfica em um só fluxo" loading="lazy" decoding="async"></span></div>
-          </div>
-          <div>
-            <p class="proj-index px"><b>01 / 04</b><span>SaaS B2B</span></p>
-            <h3>Arttevo</h3>
-            <p>Sistema de gestão para gráficas: orçamento, produção, financeiro e ferramentas de arte DTF num fluxo só. O cliente monta a própria folha e aprova o orçamento por link.</p>
-            <ul class="tags"><li>DTF</li><li>Kanban</li><li>Portal do cliente</li></ul>
-            <p class="role">Papel: <span>fundador e desenvolvedor</span></p>
-            <a class="proj-link" href="https://www.arttevo.com" target="_blank" rel="noopener">Visitar arttevo.com ↗</a>
-          </div>
-        </article>
-
-        <article class="proj" style="--pc:#34C759" data-pc="#34C759" data-act="03" data-name="Jottape">
-          <div class="panel">
-            <div class="phone"><span class="shot"><img src="/img/jottape.webp" width="520" height="1125" alt="Tela Hoje do Jottape com briefing de IA, saldo e próximos compromissos" loading="lazy" decoding="async"></span></div>
-          </div>
-          <div>
-            <p class="proj-index px"><b>02 / 04</b><span>PWA com IA</span></p>
-            <h3>Jottape</h3>
-            <p>Agenda, tarefas e dinheiro num app só, com uma assistente de IA por voz que transforma o que você fala em tarefas.</p>
-            <ul class="tabs" aria-label="Abas do app e suas cores">
-              <li style="--c:#5856D6">Hoje</li><li style="--c:#FF3B30">Agenda</li><li style="--c:#AF52DE">Jotta</li><li style="--c:#FF9500">Tarefas</li><li style="--c:#34C759">Finanças</li>
-            </ul>
-            <p class="role">Papel: <span>fundador e desenvolvedor</span></p>
-            <a class="proj-link" href="https://jottape-web-production.up.railway.app" target="_blank" rel="noopener">Abrir o Jottape ↗</a>
-          </div>
-        </article>
-
-        <article class="proj" style="--pc:#3FBF9F" data-pc="#3FBF9F" data-act="03" data-name="Roda Junto">
-          <div class="panel">
-            <div class="free"><span class="shot"><img src="/img/roda-junto.webp" width="520" height="940" alt="Tela Passaporte do Roda Junto, com perfil verificado, 9.340 km validados e emblemas conquistados" loading="lazy" decoding="async"></span></div>
-          </div>
-          <div>
-            <p class="proj-index px"><b>03 / 04</b><span>App mobile</span></p>
-            <h3>Roda Junto</h3>
-            <p>Comunidade de motociclistas com viagens e quilômetros validados, perfil verificado e emblemas por conquista, como um passaporte de estrada.</p>
-            <ul class="badges" aria-label="Exemplos de emblemas do app">
-              <li style="--d:0;--r:-4deg">1.000 km</li><li style="--d:1;--r:3deg">5 serras</li><li style="--d:2;--r:-2deg">Boa anfitriã</li>
-            </ul>
-            <p class="role">Papel: <span>fundador e desenvolvedor</span></p>
-            <span class="proj-link soon">Estudo de caso em breve</span>
-          </div>
-        </article>
-
-        <article class="proj" style="--pc:#FF7A3D" data-pc="#FF7A3D" data-act="03" data-name="GoWorkout">
-          <div class="panel full">
-            <span class="shot"><img src="/img/goworkout.webp" width="1200" height="900" alt="Três telas do GoWorkout: treinos disponíveis, atividades do dia e corrida coletiva com percurso no mapa" loading="lazy" decoding="async"></span>
-          </div>
-          <div>
-            <p class="proj-index px"><b>04 / 04</b><span>App mobile</span></p>
-            <h3>GoWorkout</h3>
-            <p>App de academia com treinos guiados, aulas com horário e vagas, e corridas coletivas com o percurso no mapa.</p>
-            <ul class="tags"><li>Fitness</li><li>Agenda</li><li>Mapas</li></ul>
-            <p class="role">Papel: <span>fundador e desenvolvedor</span></p>
-            <span class="proj-link soon">Estudo de caso em breve</span>
-          </div>
-        </article>
-      </div>
+---
+const projects: Array<{ name: string; kind: string; fit: string; img: string; w: number; h: number; alt: string; text: string; tags: string; href?: string; label?: string; badge?: string; gallery?: Shot[] }> = [
+  {
+    name: 'Arttevo', kind: 'SAAS B2B', fit: 'full',
+    img: '/img/projetos/arttevo-site.webp', w: 1440, h: 900,
+    alt: 'Site do Arttevo no computador: Sua gráfica em um só fluxo, com o quadro de orçamentos logo abaixo',
+    gallery: [
+      { src: '/img/projetos/arttevo-site.webp', w: 1440, h: 900, alt: 'Página inicial do Arttevo no computador' },
+      { src: '/img/projetos/arttevo-orcamentos.webp', w: 2400, h: 1389, alt: 'Quadro de orçamentos do Arttevo, em colunas de rascunho, enviado, aprovado e concluído' },
+      { src: '/img/projetos/arttevo-mockup3d.webp', w: 1978, h: 1180, alt: 'Mockup 3D do Arttevo: molde de costura de uma camiseta e a prévia em 3D com a estampa aplicada' },
+      { src: '/img/projetos/arttevo-loja.webp', w: 2400, h: 1539, alt: 'Loja online da gráfica no Arttevo, com produtos e pedido direto pelo WhatsApp' },
+      { src: '/img/projetos/arttevo-celular.webp', w: 780, h: 1688, alt: 'Página inicial do Arttevo no celular' },
+    ],
+    text: 'Sistema de gestão para gráficas: orçamento, produção, financeiro e ferramentas de arte DTF num fluxo só. O cliente monta a própria folha e aprova o orçamento por link.',
+    tags: 'DTF · KANBAN · PORTAL DO CLIENTE',
+    href: 'https://www.arttevo.com', label: 'Visitar arttevo.com',
+  },
+  {
+    name: 'Jottape', kind: 'PWA COM IA', fit: 'phone',
+    img: '/img/jottape.webp', w: 780, h: 1688,
+    alt: 'Tela Hoje do Jottape com briefing de IA, saldo e próximos compromissos',
+    gallery: [
+      { src: '/img/projetos/jottape-desktop.webp', w: 1440, h: 900, alt: 'Jottape no computador: tela Hoje com menu lateral, briefing de IA, saldo e tarefas' },
+      { src: '/img/projetos/jottape-hoje.webp', w: 780, h: 1688, alt: 'Tela Hoje do Jottape no celular' },
+      { src: '/img/projetos/jottape-agenda.webp', w: 780, h: 1688, alt: 'Agenda do Jottape no celular, com a visão do dia' },
+      { src: '/img/projetos/jottape-jotta.webp', w: 854, h: 1730, alt: 'Jotta, a assistente de IA do Jottape, pronta para ouvir, com exemplos de pedidos por voz' },
+      { src: '/img/projetos/jottape-tarefas.webp', w: 780, h: 1688, alt: 'Lista de tarefas do Jottape com etiquetas e prazos' },
+      { src: '/img/projetos/jottape-financas.webp', w: 854, h: 1730, alt: 'Finanças do Jottape com saldo, contas e lançamentos' },
+    ],
+    text: 'Agenda, tarefas e dinheiro num app só, com uma assistente de IA por voz que transforma o que você fala em tarefas.',
+    tags: 'HOJE · AGENDA · JOTTA · TAREFAS · FINANÇAS',
+    href: 'https://jottape-web-production.up.railway.app', label: 'Abrir o Jottape',
+  },
+  {
+    name: 'Roda Junto', kind: 'APP MOBILE', fit: 'free',
+    img: '/img/roda-junto.webp', w: 944, h: 1706,
+    alt: 'Tela Passaporte do Roda Junto, com perfil verificado, 9.340 km validados e emblemas conquistados',
+    text: 'Comunidade de motociclistas com viagens e quilômetros validados, perfil verificado e emblemas por conquista, como um passaporte de estrada.',
+    tags: '1.000 KM · 5 SERRAS · BOA ANFITRIÃ',
+  },
+  {
+    name: 'GoWorkout', kind: 'APP MOBILE', fit: 'full',
+    img: '/img/goworkout.webp', w: 2400, h: 1800,
+    alt: 'Três telas do GoWorkout: treinos disponíveis, atividades do dia e corrida coletiva com percurso no mapa',
+    text: 'App de academia com treinos guiados, aulas com horário e vagas, e corridas coletivas com o percurso no mapa.',
+    tags: 'FITNESS · AGENDA · MAPAS',
+  },
+  {
+    name: 'Sektor', kind: 'AGENTES DE IA', fit: 'full', badge: 'USO PESSOAL',
+    img: '/img/projetos/sektor-inicio.webp', w: 1441, h: 900,
+    alt: 'Tela inicial do Sektor: saudação, captura rápida de notas e painéis de hábitos, tarefas, agenda e contas',
+    text: 'Meu sistema pessoal de rotina: tarefas, hábitos, agenda, saúde e finanças num painel só, com agentes de IA que organizam o dia e registram o que eu peço.',
+    tags: 'AGENTES DE IA · ROTINA · AUTOMAÇÃO',
+    gallery: [
+      { src: '/img/projetos/sektor-inicio.webp', w: 1441, h: 900, alt: 'Início do Sektor com humor, hábitos, tarefas, agenda, foco e contas a pagar' },
+      { src: '/img/projetos/sektor-projeto.webp', w: 1441, h: 900, alt: 'Projeto no Sektor com progresso e quadro kanban de tarefas' },
+      { src: '/img/projetos/sektor-saude.webp', w: 1441, h: 900, alt: 'Módulo de saúde do Sektor com check-in, água, sono, remédios e consultas' },
+    ],
+  },
+  {
+    name: 'Morro Verde', kind: 'SISTEMA DE PEDIDOS', fit: 'phone', badge: '',
+    img: '/img/projetos/morro-verde-loja.webp', w: 972, h: 1786,
+    alt: 'Catálogo do Morro Verde no celular, com produtos da semana e prazo para pedir',
+    text: 'Pedidos semanais de hortifrúti para restaurantes e mercados: o cliente monta o pedido no celular dentro do prazo, e a distribuidora controla preços, pedidos e a lista de compra num painel.',
+    tags: 'CATÁLOGO · PEDIDOS · PAINEL ADMIN',
+    gallery: [
+      { src: '/img/projetos/morro-verde-loja.webp', w: 972, h: 1786, alt: 'Catálogo do Morro Verde no celular, com produtos da semana e prazo para pedir' },
+      { src: '/img/projetos/morro-verde-pedidos.webp', w: 2400, h: 1435, alt: 'Pedidos da semana no painel do Morro Verde' },
+      { src: '/img/projetos/morro-verde-produtos.webp', w: 2400, h: 1435, alt: 'Produtos e preços da semana, com mínimo, custo, margem e disponibilidade' },
+    ],
+  },
+];
+type Shot = { src: string; w: number; h: number; alt: string };
+---
+<section class="sec pad-wide" id="projetos" data-act="03" data-name="Projetos" data-accent="#3ddcf5">
+  <div class="rail plus-col l" aria-hidden="true">{Array.from({ length: 10 }, () => <span>+</span>)}</div>
+  <div class="rail plus-col r" aria-hidden="true">{Array.from({ length: 10 }, () => <span>+</span>)}</div>
+  <div class="inner">
+    <div class="sec-head">
+      <span class="acc" data-scramble>/03</span>
+      <h2 class="d up" data-scramble>Produtos que eu criei e desenvolvi</h2>
+      <span class="sec-tag" data-scramble>PROJETOS · DA IDEIA AO AR</span>
     </div>
-  </section>
+    <div class="work-grid">
+      {projects.map((p, i) => (
+        <article class={`work${p.gallery ? ' has-gallery' : ''}`} data-rv="work" style={`--d:${i}; view-transition-name: proj-${i + 1}`} id={`proj-${i + 1}`}>
+          <div class={`shot fit-${p.fit}`}>
+            <span class="scn" data-scramble>//SCN_0{i + 1}</span>
+            <span class="pic"><img src={p.img} width={p.w} height={p.h} alt={p.alt} loading="lazy" decoding="async" /></span>
+            {p.gallery && (
+              <button class="expand" type="button" aria-expanded="false" aria-controls={`gal-${i + 1}`} aria-label={`Ver ${p.gallery.length} imagens de ${p.name}`}>
+                <span class="expand-tag"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M1 5V1h4M11 1h4v4M15 11v4h-4M5 15H1v-4"></path></svg>+{p.gallery.length} IMAGENS</span>
+              </button>
+            )}
+          </div>
+          {p.gallery && (
+            <div class="gallery" id={`gal-${i + 1}`} role="region" aria-label={`Imagens de ${p.name}`} hidden>
+              <div class="gal-bar">
+                <span class="scn-static">//SCN_0{i + 1} · {p.name.toUpperCase()}</span>
+                <span class="gal-count" aria-live="polite"><b>01</b>/{String(p.gallery.length).padStart(2, '0')}</span>
+                <button class="gal-close" type="button" aria-label="Fechar imagens"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2 2l12 12M14 2L2 14"></path></svg></button>
+              </div>
+              <ul class="gal-track" tabindex="0" aria-label="Arraste ou use as setas para ver as imagens">
+                {p.gallery.map((g, k) => (
+                  <li class={g.w > g.h ? 'wide' : 'tall'} style={`--k:${k}; --ar:${g.w}/${g.h}`}><img src={g.src} width={g.w} height={g.h} alt={g.alt} loading="lazy" decoding="async" /></li>
+                ))}
+              </ul>
+              <div class="gal-nav">
+                <button class="gal-prev" type="button" aria-label="Imagem anterior"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 2L4 7l5 5"></path></svg></button>
+                <div class="gal-seg" aria-hidden="true">{p.gallery.map((_, k) => <span class={k === 0 ? 'on' : ''}></span>)}</div>
+                <button class="gal-next" type="button" aria-label="Próxima imagem"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 2l5 5-5 5"></path></svg></button>
+              </div>
+            </div>
+          )}
+          <div class="work-body">
+            <div class="work-head">
+              <div class="work-title">
+                <h3 class="d up">{p.name}</h3>
+                <span class="kind">{p.kind}</span>
+              </div>
+              {p.href ? (
+                <a class="arrowbox" href={p.href} target="_blank" rel="noopener" aria-label={p.label}><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 11L11 3M5 3h6v6"></path></svg></a>
+              ) : p.badge !== '' && (
+                <span class="soon">{p.badge ?? 'EM BREVE'}</span>
+              )}
+            </div>
+            <p class="muted">{p.text}</p>
+            <p class="tagline">{p.tags}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

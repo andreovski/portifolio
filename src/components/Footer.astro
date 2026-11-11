@@ -1,7 +1,48 @@
-<footer>
-  <div class="wrap">
-    <span>© 2026 André Luiz</span>
-    <button class="toggle" id="liteFoot" aria-pressed="false">Modo leve</button>
+---
+import { contact } from '../data/site';
+const whatsapp = `https://wa.me/${contact.whatsapp}?text=${encodeURIComponent(contact.whatsappText)}`;
+---
+<footer class="foot">
+  <div class="foot-grid">
+    <div class="foot-brand">
+      <span class="brand">
+        <span class="mark" aria-hidden="true"><i></i><i class="o"></i><i class="o"></i><i></i><i></i><i></i><i class="o"></i><i></i><i></i><i class="o"></i><i></i><i></i><i></i><i class="o"></i><i class="o"></i><i></i></span>
+        André Luiz
+      </span>
+      <span class="small">© 2026 ANDRÉ LUIZ</span>
+      <button class="toggle" id="liteFoot" type="button" aria-pressed="false">Modo leve</button>
+    </div>
+    <nav class="foot-col" aria-label="Navegação do rodapé">
+      <span class="d up foot-h">Navegação</span>
+      <a class="navlink" href="#inicio">Início</a>
+      <a class="navlink" href="#manifesto">Manifesto</a>
+      <a class="navlink" href="#servicos">Serviços</a>
+      <a class="navlink" href="#projetos">Projetos</a>
+      <a class="navlink" href="#processo">Processo</a>
+      <a class="navlink" href="#contato">Contato</a>
+    </nav>
+    <div class="foot-col">
+      <span class="d up foot-h">Projetos</span>
+      <a class="navlink" href="https://www.arttevo.com" target="_blank" rel="noopener">Arttevo</a>
+      <a class="navlink" href="https://jottape-web-production.up.railway.app" target="_blank" rel="noopener">Jottape</a>
+      <span>Roda Junto</span>
+      <span>GoWorkout</span>
+      <span>Sektor</span>
+      <span>Morro Verde</span>
+    </div>
+    <div class="foot-col">
+      <span class="d up foot-h">Canais</span>
+      <a class="navlink" href={whatsapp} target="_blank" rel="noopener">WhatsApp</a>
+      <a class="navlink" href={`mailto:${contact.email}`}>E-mail</a>
+      <a class="navlink" href={contact.github} target="_blank" rel="noopener">GitHub</a>
+    </div>
+    <div class="foot-col">
+      <span class="d up foot-h">Fuso</span>
+      <span class="tz">BRASÍLIA <span class="acc">+</span> UTC−3</span>
+      <span class="d foot-clock" data-clock="s">--:--:--</span>
+    </div>
+  </div>
+  <div class="hazard" aria-hidden="true">
+    <span class="hazard-msg">&gt; <span id="granted">ACESSO LIBERADO</span><span class="blink">_</span></span>
   </div>
 </footer>
-<canvas id="trail" aria-hidden="true" hidden></canvas>

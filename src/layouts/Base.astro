@@ -1,5 +1,7 @@
 ---
 import '@fontsource/jersey-15/400.css';
+import '@fontsource/chakra-petch/600.css';
+import '@fontsource/chakra-petch/700.css';
 import '@fontsource/space-mono/400.css';
 import '@fontsource/space-mono/700.css';
 import '../styles/global.css';
@@ -32,6 +34,16 @@ const ogImage = new URL('/img/og.jpg', Astro.site);
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
     <meta name="twitter:card" content="summary_large_image" />
+    <!-- Liga as animações antes da primeira pintura, para os elementos não piscarem visíveis e depois sumirem -->
+    <script is:inline>
+      (function () {
+        var lite = false;
+        try { lite = localStorage.getItem('lite') === '1'; } catch (e) {}
+        var save = !!(navigator.connection && navigator.connection.saveData);
+        var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+        document.documentElement.classList.add(!reduce && !lite && !save ? 'motion' : 'lite');
+      })();
+    </script>
   </head>
   <body>
     <slot />

@@ -1,16 +1,43 @@
 ---
 import { contact } from '../data/site';
 const whatsapp = `https://wa.me/${contact.whatsapp}?text=${encodeURIComponent(contact.whatsappText)}`;
+const arrow = '<path d="M3 11L11 3M5 3h6v6"></path>';
 ---
-  <section class="contact" id="contato" data-act="05" data-name="Contato" data-accent="--ambar">
-    <div class="wrap">
-      <p class="eyebrow px">Contato</p>
-      <h2>Bora automatizar o seu negócio?</h2>
-      <p>Me conta a ideia ou o processo que mais toma tempo da sua equipe. Eu respondo em até um dia útil com os próximos passos.</p>
-      <div class="contact-row">
-        <a class="btn" href={whatsapp} target="_blank" rel="noopener">WhatsApp · {contact.phoneLabel} ↗</a>
-        <a class="btn ghost" href={`mailto:${contact.email}`}>{contact.email}</a>
-        <a class="link" href={contact.github} target="_blank" rel="noopener">GitHub ↗</a>
-      </div>
+<section class="sec" id="contato" data-act="05" data-name="Contato" data-accent="#ffb627">
+  <span class="cross l" aria-hidden="true">+</span><span class="cross r" aria-hidden="true">+</span>
+  <div class="bottom-grid">
+    <div class="cell" data-rv="up" style="--d:0">
+      <span class="acc" data-scramble>/05</span>
+      <h2 class="d up contact-title">Bora automatizar o seu negócio?</h2>
+      <p class="muted">Me conta a ideia ou o processo que mais toma tempo da sua equipe.</p>
+      <a class="btn-solid btn-lg caps wa" href={whatsapp} target="_blank" rel="noopener">Falar no WhatsApp <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" set:html={arrow} /></a>
     </div>
-  </section>
+
+    <div class="cell" data-rv="status" style="--d:1">
+      <span class="acc" data-scramble>/06</span>
+      <h3 class="d up">Status</h3>
+      <dl class="status">
+        <div style="--k:0"><dt>DISPONIBILIDADE</dt><span class="lead" aria-hidden="true"></span><dd>ABERTO</dd></div>
+        <div style="--k:1"><dt>RESPOSTA</dt><span class="lead" aria-hidden="true"></span><dd>ATÉ 1 DIA ÚTIL</dd></div>
+        <div style="--k:2"><dt>HORA LOCAL</dt><span class="lead" aria-hidden="true"></span><dd><span data-clock="m">--:--</span> BRT</dd></div>
+        <div style="--k:3"><dt>PROJETOS CRIADOS</dt><span class="lead" aria-hidden="true"></span><dd>06</dd></div>
+      </dl>
+      <p class="open-badge"><i aria-hidden="true"></i>ABERTO A NOVOS PROJETOS</p>
+    </div>
+
+    <div class="cell" data-rv="up" style="--d:2">
+      <span class="acc" data-scramble>/07</span>
+      <h3 class="d up">Canais</h3>
+      <p class="muted">Eu respondo em até um dia útil com os próximos passos.</p>
+      <div class="field">
+        <span>{contact.email}</span>
+        <a class="btn-solid caps" href={`mailto:${contact.email}`}>E-mail <svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" set:html={arrow} /></a>
+      </div>
+      <div class="field">
+        <span>github.com/andreovski</span>
+        <a class="btn-ghost caps" href={contact.github} target="_blank" rel="noopener">GitHub <svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" set:html={arrow} /></a>
+      </div>
+      <span class="hatch" aria-hidden="true"></span>
+    </div>
+  </div>
+</section>
