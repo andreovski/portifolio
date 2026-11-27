@@ -22,11 +22,13 @@ npm run preview  # serve o build
 | Estilos e tokens de cor | `src/styles/global.css` |
 | Efeitos (retrato ASCII, rastro, modo leve) | `src/scripts/main.js` |
 | Imagens e vídeo da hero | `public/img/` |
+| Vídeo da seção de automações e o quadro de capa | `public/img/automacoes/` |
 
 Domínio: [decolab.dev](https://decolab.dev), definido em `site` no `astro.config.mjs`.
 
 ## Desempenho e acessibilidade
 
 - Com "Modo leve", `prefers-reduced-motion` ou economia de dados, as animações param e o vídeo da hero fica num quadro estático.
+- O vídeo da seção de automações toca mudo só enquanto está na tela, tem botão de pausa e não toca sozinho no modo leve.
 - O vídeo da hero só toca enquanto a seção está na tela. O celular recebe uma versão recortada e mais leve (`hero-bg-m.mp4`).
 - Fontes servidas pelo próprio site via Fontsource.
