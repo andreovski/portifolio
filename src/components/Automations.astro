@@ -1,0 +1,154 @@
+---
+import { contact } from '../data/site';
+
+const waText = 'Oi, Deco! Vi a automação de WhatsApp no seu portfólio e quero uma para o meu negócio.';
+const whatsapp = `https://wa.me/${contact.whatsapp}?text=${encodeURIComponent(waText)}`;
+
+// As mesmas quatro etapas que acendem no fluxo do vídeo
+const steps = [
+  { t: 'Recebe', p: 'A mensagem do hóspede chega pelo WhatsApp e dispara o fluxo.' },
+  { t: 'Entende', p: 'O agente de IA interpreta a pergunta e decide o que consultar.' },
+  { t: 'Consulta', p: 'Busca nos arquivos do hotel: vagas, horários e regras.' },
+  { t: 'Responde', p: 'Devolve a resposta no WhatsApp em segundos.' },
+];
+
+// Trechos do vídeo (em segundos) em que cada etapa está acesa: [início, fim, etapa]
+const sync = [
+  [5.9, 6.77, 0], [6.77, 7.63, 1], [7.63, 8.5, 2], [8.5, 10.9, 3],
+  [18.22, 19.12, 0], [19.12, 21.39, 1], [21.39, 25.31, 2], [25.31, 26.61, 3],
+  [31.56, 32.46, 0], [32.46, 34.73, 1], [34.73, 38.65, 2], [38.65, 39.95, 3],
+  [44.9, 45.8, 0], [45.8, 48.07, 1], [48.07, 51.99, 2], [51.99, 53.29, 3],
+  [58.35, 59.25, 0], [59.25, 61.52, 1], [61.52, 68.56, 2], [68.56, 69.86, 3],
+];
+const arrow = '<path d="M3 11L11 3M5 3h6v6"></path>';
+---
+<section class="sec pad" id="automacoes" data-act="03" data-name="Automações" data-accent="#25d366">
+  <span class="cross l" aria-hidden="true">+</span><span class="cross r" aria-hidden="true">+</span>
+  <div class="inner">
+    <div class="sec-head">
+      <span class="acc" data-scramble>/03</span>
+      <h2 class="d up" data-scramble>Automações que atendem por você</h2>
+      <span class="sec-tag" data-scramble>AGENTES DE IA · EM AÇÃO</span>
+    </div>
+
+    <div class="auto-grid">
+      <div class="auto-copy">
+        <span class="kind acc" data-rv="up" style="--d:0">CASO · AGENTE DE IA NO WHATSAPP</span>
+        <h3 class="d up auto-title" data-rv="up" style="--d:1">Atendimento de hotel que responde sozinho</h3>
+        <p class="muted" data-rv="up" style="--d:2">
+          O hóspede pergunta no WhatsApp e um agente de IA responde na hora, consultando vagas, horários e regras do hotel.
+          Sem fila e sem depender de alguém da equipe, inclusive de madrugada e no feriado.
+        </p>
+        <p class="auto-247" data-rv="up" style="--d:3"><i aria-hidden="true"></i><span><b>Funciona 24h por dia, 7 dias por semana</b></span></p>
+        <ol class="auto-steps" data-rv="up" style="--d:4">
+          {steps.map((s, i) => (
+            <li data-step={i}>
+              <span class="auto-n">0{i + 1}</span>
+              <span><b class="d up">{s.t}</b><span class="muted">{s.p}</span></span>
+            </li>
+          ))}
+        </ol>
+        <p class="tagline" data-rv="up" style="--d:5">N8N · AGENTE DE IA · WHATSAPP · PLANILHAS</p>
+        <a class="btn-solid btn-lg caps auto-cta" data-rv="up" style="--d:6" href={whatsapp} target="_blank" rel="noopener">Quero isso no meu negócio <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" set:html={arrow} /></a>
+      </div>
+
+      <figure class="auto-player" data-rv="auto" style="--d:1" data-sync={JSON.stringify(sync)}>
+        <div class="auto-bar">
+          <span class="rec"><i aria-hidden="true"></i>REC</span>
+          <span class="auto-file">//ATENDIMENTO_HOTEL.MP4</span>
+          <span class="auto-time" aria-hidden="true"><b>00:00</b>/01:22</span>
+          <button class="auto-toggle" type="button" aria-label="Pausar vídeo" aria-pressed="false">
+            <svg class="i-pause" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true"><rect x="2" y="1" width="3.5" height="12"></rect><rect x="8.5" y="1" width="3.5" height="12"></rect></svg>
+            <svg class="i-play" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true"><path d="M3 1l10 6-10 6z"></path></svg>
+          </button>
+          <button class="auto-fs" type="button" aria-label="Ver em tela cheia">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M1 5V1h4M11 1h4v4M15 11v4h-4M5 15H1v-4"></path></svg>
+          </button>
+        </div>
+        <div class="auto-screen">
+          <video
+            muted loop playsinline controls preload="none"
+            poster="/img/automacoes/automacao-whatsapp-hotel.webp"
+            width="1280" height="720"
+            aria-label="Demonstração: à esquerda, um hóspede conversa com o hotel no WhatsApp; à direita, o fluxo de automação recebe a mensagem, aciona o agente de IA, consulta os arquivos de disponibilidade, horários e regras e envia a resposta."
+          >
+            <source src="/img/automacoes/automacao-whatsapp-hotel.mp4" type="video/mp4" />
+          </video>
+        </div>
+        <div class="auto-seg" aria-hidden="true">{Array.from({ length: 24 }, () => <span></span>)}</div>
+        <figcaption>Demonstração com dados fictícios · sem áudio</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Vídeo da seção de automações: toca sozinho (mudo) só enquanto está na tela,
+  // acende a etapa da lista que está acontecendo no vídeo e respeita o modo leve.
+  const player = document.querySelector<HTMLElement>('.auto-player');
+  const video = player?.querySelector('video');
+  if (player && video) {
+    const root = document.documentElement;
+    const btn = player.querySelector<HTMLButtonElement>('.auto-toggle')!;
+    const timeEl = player.querySelector('.auto-time b')!;
+    const segs = Array.from(player.querySelectorAll('.auto-seg span'));
+    const items = Array.from(document.querySelectorAll<HTMLElement>('.auto-steps [data-step]'));
+    const sync: [number, number, number][] = JSON.parse(player.dataset.sync || '[]');
+    const motion = () => root.classList.contains('motion');
+    const fsBtn = player.querySelector<HTMLButtonElement>('.auto-fs')!;
+    let visible = false, userPaused = false, raf = 0, lastStep = -2, lastSeg = -1, lastSec = -1;
+
+    // Com JS, os controles nativos dão lugar à barra própria (botão, tempo e progresso)
+    video.controls = false;
+
+    const fmt = (s: number) => `${String(Math.floor(s / 60)).padStart(2, '0')}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
+    function paint() {
+      const t = video!.currentTime, d = video!.duration || 82;
+      const sec = Math.floor(t);
+      if (sec !== lastSec) { lastSec = sec; timeEl.textContent = fmt(t); }
+      const seg = Math.round((t / d) * segs.length);
+      if (seg !== lastSeg) { lastSeg = seg; segs.forEach((s, i) => s.classList.toggle('on', i < seg)); }
+      let step = -1;
+      for (const [a, b, k] of sync) if (t >= a && t < b) { step = k; break; }
+      if (step !== lastStep) { lastStep = step; items.forEach((li, i) => li.classList.toggle('on', i === step)); }
+    }
+    function loop() { paint(); raf = video!.paused ? 0 : requestAnimationFrame(loop); }
+
+    function setState() {
+      const playing = !video!.paused;
+      player!.classList.toggle('playing', playing);
+      btn.setAttribute('aria-label', playing ? 'Pausar vídeo' : 'Reproduzir vídeo');
+      btn.setAttribute('aria-pressed', String(!playing));
+    }
+    function play() { video!.play().catch(() => setState()); }
+    function sync_() {
+      // toca sozinho só com animações ligadas, na tela e sem pausa manual
+      if (visible && motion() && !userPaused) play();
+      else if (!video!.paused && (!visible || !motion())) video!.pause();
+    }
+
+    video.addEventListener('play', () => { setState(); if (!raf) raf = requestAnimationFrame(loop); });
+    video.addEventListener('pause', () => { setState(); paint(); });
+    video.addEventListener('seeked', paint);
+    btn.addEventListener('click', () => {
+      if (video.paused) { userPaused = false; play(); } else { userPaused = true; video.pause(); }
+    });
+
+    // tela cheia: no celular é o jeito de ler o chat e o fluxo; o iPhone só aceita a do próprio vídeo
+    const v = video as HTMLVideoElement & { webkitEnterFullscreen?: () => void };
+    if (!video.requestFullscreen && !v.webkitEnterFullscreen) fsBtn.hidden = true;
+    fsBtn.addEventListener('click', () => {
+      userPaused = false; play();
+      if (video.requestFullscreen) video.requestFullscreen().catch(() => {});
+      else v.webkitEnterFullscreen?.();
+    });
+    document.addEventListener('fullscreenchange', () => { video.controls = document.fullscreenElement === video; });
+
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver((es) => { visible = es[0].isIntersecting; sync_(); }, { threshold: 0.35 }).observe(player);
+    }
+    // o modo leve (main.js) troca a classe do <html>: pausa ou volta a tocar
+    new MutationObserver(() => { if (!motion()) userPaused = false; sync_(); }).observe(root, { attributes: true, attributeFilter: ['class'] });
+    setState();
+  }
+</script>
