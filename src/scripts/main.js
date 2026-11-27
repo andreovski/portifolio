@@ -216,8 +216,8 @@
     // densidade real da tela (até 3x) para os caracteres saírem nítidos no celular
     var dpr = Math.min(3, devicePixelRatio || 1);
     cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);
-    // no celular o retrato é estreito: mais colunas para o rosto não virar borrão
-    aCols = w < 420 ? Math.round(w / 2.3) : 130; cw = cv.width / aCols; ch = cw * 1.7; aRows = Math.floor(cv.height / ch);
+    // mais colunas = caracteres menores e mais detalhe (o retrato vai até os braços, então o rosto precisa de densidade)
+    aCols = w < 420 ? Math.round(w / 1.8) : 175; cw = cv.width / aCols; ch = cw * 1.7; aRows = Math.floor(cv.height / ch);
     var off = document.createElement('canvas'); off.width = aCols; off.height = aRows; var og = off.getContext('2d');
     var sw = src.naturalWidth, sh = src.naturalHeight;
     // "contain" encostado embaixo: a foto inteira cabe, sem cortar o rosto
@@ -251,7 +251,7 @@
         actx.fillStyle = near ? 'rgba(244,241,234,.95)' : 'rgba(169,164,191,.4)';
       } else {
         if (chr === ' ') continue;
-        actx.fillStyle = 'rgba(244,241,234,' + (.28 + c.n * .72).toFixed(2) + ')';
+        actx.fillStyle = 'rgba(244,241,234,' + (.3 + c.n * .7).toFixed(2) + ')';
       }
       actx.fillText(chr, c.x * cw, c.y * ch);
     }
