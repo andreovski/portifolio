@@ -1,4 +1,4 @@
-// Comportamento da home: fundo de quadrados por seção, acento por seção, retrato ASCII,
+// Comportamento da home: fundo de quadrados por seção, acento por seção, retrato em duotone com mosaico,
 // entradas animadas (revelar, decodificar texto, despixelizar), manifesto por rolagem e modo leve.
 (function () {
   var root = document.documentElement;
@@ -21,7 +21,7 @@
     document.getElementById(id).addEventListener('click', function () {
       lite = !lite;
       try { localStorage.setItem('lite', lite ? '1' : '0'); } catch (e) {}
-      applyMotion(); startAscii(); grid.restart(); manifestoSetup();
+      applyMotion(); startPortrait(); grid.restart(); manifestoSetup();
     });
   });
 
@@ -206,78 +206,99 @@
   }
   addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
 
-  /* ---------------- hero: retrato em caracteres, decodificado de símbolos aleatórios ---------------- */
-  var cv = document.getElementById('ascii'), actx = cv.getContext('2d');
-  var RAMP = " .,:-=+*<>/{}#%@";
-  var NOISE = "01<>/\\{}[]#$%&*+=;:";
-  var src = null, cells = [], aCols = 0, aRows = 0, cw = 0, ch = 0, aRaf = 0, t0 = 0, hover = null;
-  function sample() {
-    var w = cv.clientWidth, h = cv.clientHeight; if (!w || !h) return false;
-    // densidade real da tela (até 3x) para os caracteres saírem nítidos no celular
-    var dpr = Math.min(3, devicePixelRatio || 1);
-    cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);
-    // mais colunas = caracteres menores e mais detalhe (o retrato vai até os braços, então o rosto precisa de densidade)
-    aCols = w < 420 ? Math.round(w / 1.8) : 175; cw = cv.width / aCols; ch = cw * 1.7; aRows = Math.floor(cv.height / ch);
-    var off = document.createElement('canvas'); off.width = aCols; off.height = aRows; var og = off.getContext('2d');
-    var sw = src.naturalWidth, sh = src.naturalHeight;
+  /* ---------------- hero: retrato em duotone; onde o mouse passa, vira mosaico de quadrados ---------------- */
+  var cv = document.getElementById('retrato'), pctx = cv.getContext('2d');
+  var INK = [15, 13, 26], PAPER = [244, 241, 234];
+  var src = null, duo = null, cells = [], pitch = 0, pRaf = 0, t0 = 0, entering = false;
+  // lente do mosaico: segue o mouse com atraso e cresce/encolhe ao entrar/sair
+  var lens = { x: 0, y: 0, tx: 0, ty: 0, r: 0, tr: 0 };
+  function hexRgb(h) { h = h.replace('#', ''); return [parseInt(h.slice(0, 2), 16), parseInt(h.slice(2, 4), 16), parseInt(h.slice(4, 6), 16)]; }
+  function buildPortrait() {
+    var w = cv.clientWidth, h = cv.clientHeight; if (!w || !h || !src) return false;
+    var dpr = Math.min(2, devicePixelRatio || 1), W = Math.round(w * dpr), H = Math.round(h * dpr);
+    cv.width = W; cv.height = H;
     // "contain" encostado embaixo: a foto inteira cabe, sem cortar o rosto
-    var target = aCols / (aRows * 1.7), sr = sw / sh, dw = aCols, dh = aRows;
-    if (sr > target) dh = aRows * target / sr; else dw = aCols * sr / target;
-    og.drawImage(src, 0, 0, sw, sh, (aCols - dw) / 2, aRows - dh, dw, dh);
-    var d = og.getImageData(0, 0, aCols, aRows).data, lums = [], alpha = [], min = 1, max = 0;
-    for (var i = 0; i < aCols * aRows; i++) {
-      var a = d[i * 4 + 3] / 255, l = (d[i * 4] * .299 + d[i * 4 + 1] * .587 + d[i * 4 + 2] * .114) / 255;
-      alpha.push(a); lums.push(l); if (a > .5) { min = Math.min(min, l); max = Math.max(max, l); }
+    var sr = src.naturalWidth / src.naturalHeight, dw = W, dh = H;
+    if (sr > W / H) dh = W / sr; else dw = H * sr;
+    var dx = (W - dw) / 2, dy = H - dh;
+    // a foto vem em tons de cinza; aqui ela vira duas cores: o fundo do site nas sombras e o acento da hero nas luzes
+    var acc = hexRgb(cv.closest('[data-accent]').dataset.accent || '#c6f432');
+    var off = document.createElement('canvas'); off.width = W; off.height = H;
+    var og = off.getContext('2d'); og.drawImage(src, dx, dy, dw, dh);
+    var img = og.getImageData(0, 0, W, H), d = img.data;
+    for (var i = 0; i < d.length; i += 4) {
+      var k = Math.pow(d[i] / 255, 1.1);
+      d[i] = INK[0] + (acc[0] - INK[0]) * k; d[i + 1] = INK[1] + (acc[1] - INK[1]) * k; d[i + 2] = INK[2] + (acc[2] - INK[2]) * k;
     }
-    cells = lums.map(function (l, i) {
-      var n = (l - min) / Math.max(.001, max - min); n = Math.pow(Math.max(0, n), 1.1);
-      if (alpha[i] < .35) n = 0; else n = .14 + n * .86 * alpha[i];
-      var x = i % aCols, y = Math.floor(i / aCols);
-      return { n: n, c: RAMP.charAt(Math.round(n * (RAMP.length - 1))), x: x, y: y, at: Math.random() * .55 + (y / aRows) * .45 };
-    });
+    og.putImageData(img, 0, 0); duo = off;
+    // grade do mosaico no ritmo dos quadrados do fundo
+    pitch = Math.round((w < 600 ? 9 : 11) * dpr);
+    var cols = Math.ceil(W / pitch), rows = Math.ceil(H / pitch);
+    var sm = document.createElement('canvas'); sm.width = cols; sm.height = rows;
+    var sg = sm.getContext('2d'); sg.drawImage(src, dx / pitch, dy / pitch, dw / pitch, dh / pitch);
+    var sd = sg.getImageData(0, 0, cols, rows).data;
+    cells = [];
+    for (var j = 0; j < cols * rows; j++) {
+      var a = sd[j * 4 + 3] / 255; if (a < .5) continue;
+      var v = sd[j * 4] / 255, cx = j % cols, cy = (j / cols) | 0;
+      cells.push({ x: cx * pitch, y: cy * pitch, v: v, fill: v > .78 ? 'rgb(' + PAPER + ')' : 'rgb(' + acc + ')', at: Math.random() * .6 + (cy / rows) * .4 });
+    }
     return true;
   }
-  function drawAscii(k) {
-    // sem caixa: o fundo do canvas é transparente e só os caracteres aparecem sobre a página
-    actx.clearRect(0, 0, cv.width, cv.height);
-    actx.font = '400 ' + (cw * 1.62).toFixed(1) + 'px "Space Mono", ui-monospace, Menlo, monospace';
-    actx.textBaseline = 'top';
+  function smooth(e0, e1, x) { var t = Math.min(1, Math.max(0, (x - e0) / (e1 - e0))); return t * t * (3 - 2 * t); }
+  function drawPortrait(k) {
+    pctx.globalCompositeOperation = 'source-over'; pctx.globalAlpha = 1;
+    pctx.clearRect(0, 0, cv.width, cv.height);
+    pctx.drawImage(duo, 0, 0);
+    if (k >= 1.2 && lens.r < 1) return;
+    var gap = Math.max(1, Math.round(pitch * .14)), full = pitch - gap, R = lens.r, R2 = R * R;
     for (var i = 0; i < cells.length; i++) {
-      var c = cells[i], chr = c.c, near = false;
-      if (hover) { var dx = c.x - hover.x, dy = (c.y - hover.y) * 1.7; near = dx * dx + dy * dy < 30; }
-      if (k < c.at || near) {
-        if (c.n < .08 && !near) continue;
-        chr = NOISE.charAt((Math.random() * NOISE.length) | 0);
-        actx.fillStyle = near ? 'rgba(244,241,234,.95)' : 'rgba(169,164,191,.4)';
-      } else {
-        if (chr === ' ') continue;
-        actx.fillStyle = 'rgba(244,241,234,' + (.3 + c.n * .7).toFixed(2) + ')';
+      var c = cells[i], m = 0;
+      // entrada: cada quadrado se resolve na foto num momento, de cima para baixo com sorteio
+      if (k < c.at) m = 1; else if (k < c.at + .18) m = 1 - (k - c.at) / .18;
+      if (R > 1) {
+        var ddx = c.x + pitch / 2 - lens.x, ddy = c.y + pitch / 2 - lens.y, d2 = ddx * ddx + ddy * ddy;
+        if (d2 < R2) m = Math.max(m, smooth(R, R * .5, Math.sqrt(d2)));
       }
-      actx.fillText(chr, c.x * cw, c.y * ch);
+      if (m <= .01) continue;
+      // apaga a foto embaixo do quadrado e desenha o quadrado do tamanho do brilho
+      pctx.globalCompositeOperation = 'destination-out'; pctx.globalAlpha = m;
+      pctx.fillRect(c.x, c.y, pitch, pitch);
+      var s = Math.round(full * Math.pow(c.v, .85));
+      if (s < 1) continue;
+      pctx.globalCompositeOperation = 'source-over';
+      pctx.fillStyle = c.fill;
+      pctx.fillRect(c.x + (pitch - s) / 2, c.y + (pitch - s) / 2, s, s);
     }
+    pctx.globalCompositeOperation = 'source-over'; pctx.globalAlpha = 1;
   }
-  function asciiLoop(time) {
+  function portraitLoop(time) {
     if (!t0) t0 = time;
-    var k = Math.min(1.01, (time - t0) / 1600);
-    drawAscii(k);
-    aRaf = (k < 1.01 || hover) ? requestAnimationFrame(asciiLoop) : 0;
+    var k = entering ? Math.min(1.2, (time - t0) / 1400) : 1.2;
+    if (k >= 1.2) entering = false;
+    lens.x += (lens.tx - lens.x) * .22; lens.y += (lens.ty - lens.y) * .22; lens.r += (lens.tr - lens.r) * .16;
+    if (lens.tr === 0 && lens.r < 1) lens.r = 0;
+    drawPortrait(k);
+    pRaf = (entering || lens.r > 0 || lens.tr > 0) ? requestAnimationFrame(portraitLoop) : 0;
   }
-  function startAscii() {
-    cancelAnimationFrame(aRaf); aRaf = 0;
-    if (!src || !sample()) return;
-    if (motionOn()) { t0 = 0; aRaf = requestAnimationFrame(asciiLoop); } else drawAscii(2);
+  function startPortrait() {
+    cancelAnimationFrame(pRaf); pRaf = 0;
+    if (!src || !buildPortrait()) return;
+    lens.r = lens.tr = 0;
+    if (motionOn()) { t0 = 0; entering = true; pRaf = requestAnimationFrame(portraitLoop); } else drawPortrait(2);
   }
   var me = new Image();
-  me.onload = function () { src = me; startAscii(); };
-  me.src = '/img/andre-ascii.webp';
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { if (src && !aRaf) drawAscii(2); });
+  me.onload = function () { src = me; startPortrait(); };
+  me.src = '/img/andre-duo.webp';
   cv.addEventListener('pointermove', function (e) {
-    if (!fine.matches || !motionOn() || !cells.length) return;
-    var b = cv.getBoundingClientRect();
-    hover = { x: (e.clientX - b.left) / b.width * aCols, y: (e.clientY - b.top) / b.height * cv.height / ch };
-    if (!aRaf) { t0 = performance.now() - 5000; aRaf = requestAnimationFrame(asciiLoop); }
+    if (!fine.matches || !motionOn() || !duo) return;
+    var b = cv.getBoundingClientRect(), sx = cv.width / b.width;
+    lens.tx = (e.clientX - b.left) * sx; lens.ty = (e.clientY - b.top) * sx;
+    if (lens.tr === 0) { lens.x = lens.tx; lens.y = lens.ty; }
+    lens.tr = 120 * sx;
+    if (!pRaf) pRaf = requestAnimationFrame(portraitLoop);
   });
-  cv.addEventListener('pointerleave', function () { hover = null; });
+  cv.addEventListener('pointerleave', function () { lens.tr = 0; });
 
   // No celular a barra de endereço some/volta na rolagem e dispara resize: só remonta o que mudou de tamanho
   var rT, lastBox = cv.clientWidth + 'x' + cv.clientHeight, lastW = innerWidth;
@@ -285,7 +306,7 @@
     clearTimeout(rT);
     rT = setTimeout(function () {
       var box = cv.clientWidth + 'x' + cv.clientHeight;
-      if (box !== lastBox) { lastBox = box; startAscii(); }
+      if (box !== lastBox) { lastBox = box; startPortrait(); }
       if (innerWidth !== lastW) { lastW = innerWidth; grid.resize(); }
       curAct = -1; onScroll();
     }, 200);
@@ -447,5 +468,5 @@
   manifestoSetup();
   grid.restart();
   onScroll();
-  reduce.addEventListener && reduce.addEventListener('change', function () { applyMotion(); startAscii(); grid.restart(); manifestoSetup(); });
+  reduce.addEventListener && reduce.addEventListener('change', function () { applyMotion(); startPortrait(); grid.restart(); manifestoSetup(); });
 })();

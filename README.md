@@ -20,7 +20,7 @@ npm run preview  # serve o build
 | Nome, descrição, e-mail, WhatsApp | `src/data/site.ts` |
 | Seções da home | `src/components/*.astro` |
 | Estilos e tokens de cor | `src/styles/global.css` |
-| Efeitos (retrato ASCII, rastro, modo leve) | `src/scripts/main.js` |
+| Efeitos (retrato em duotone com mosaico no hover, rastro, modo leve) | `src/scripts/main.js` |
 | Imagens e vídeo da hero | `public/img/` |
 | Vídeo da seção de automações e o quadro de capa | `public/img/automacoes/` |
 

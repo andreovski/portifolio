@@ -146,14 +146,14 @@ main { position: relative; z-index: 1; }
 .avail i { flex: none; width: 8px; height: 8px; background: var(--accent); animation: blink 1.2s steps(1) infinite; }
 .hero-cta { display: flex; flex-wrap: wrap; gap: 12px; }
 
-/* retrato: só a foto em caracteres, sem caixa; dissolve só no finzinho para os braços cruzados aparecerem */
+/* retrato: foto em duotone sem caixa (fundo recortado); dissolve embaixo para não cortar seco */
 .portrait { position: relative; min-width: 0; aspect-ratio: 5 / 6; }
-/* não é caixa: só uma sombra difusa, sem borda, para os caracteres não se perderem nos quadrados acesos */
+/* não é caixa: só uma sombra difusa, sem borda, para a foto não se perder nos quadrados acesos */
 .portrait::before { content: ""; position: absolute; inset: -6% -10% 0; background: radial-gradient(closest-side, rgba(15, 13, 26, .9), rgba(15, 13, 26, .6) 60%, transparent); pointer-events: none; }
-#ascii {
+#retrato {
   position: absolute; inset: 0; width: 100%; height: 100%; display: block;
-  -webkit-mask-image: linear-gradient(180deg, #000 84%, transparent 100%);
-  mask-image: linear-gradient(180deg, #000 84%, transparent 100%);
+  -webkit-mask-image: linear-gradient(180deg, #000 78%, transparent 100%);
+  mask-image: linear-gradient(180deg, #000 78%, transparent 100%);
 }
 
 /* ---------- seções ---------- */
@@ -473,7 +473,7 @@ main { position: relative; z-index: 1; }
   100% { text-shadow: none; }
 }
 
-/* retrato aparece em degraus enquanto os caracteres decodificam */
+/* retrato aparece em degraus enquanto o mosaico se resolve na foto */
 .motion .portrait { animation: fade-steps .6s steps(5, end) both .1s; }
 @keyframes fade-steps { from { opacity: 0; } }
 
